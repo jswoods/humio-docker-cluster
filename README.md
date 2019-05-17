@@ -16,7 +16,7 @@ This project assumes you're running on a system with a bash-compatible shell.
 ### Installing Docker
 
 You can install Docker on a Mac either via [Homebrew](https://brew.sh/) or
-via Docker's installer. If you're using Homebrew, follow these steps:
+via Docker's installer. If you're using Homebrew run:
 
 ```
 brew cask install docker
@@ -88,7 +88,7 @@ docker-compose up -d zookeeper{1..3}
 ```
 
 The `-d` will bring up the containers in detached mode. The `{1..3}` is bash
-expansion notataion and will convert to `zookeeper1 zookeeper2 zookeeper3`
+expansion notation and will convert to `zookeeper1 zookeeper2 zookeeper3`
 behind the scenes. If you're not using bash, you can just manually type those
 out.
 
@@ -101,7 +101,7 @@ docker-compose logs -f zookeeper{1..3}
 
 If all went well, then you should see something like this:
 
-```
+```shell
 $ docker-compose logs zookeeper{1..3} | grep ELECTION
 humio-zookeeper1 | [2019-05-17 21:27:09,163] INFO FOLLOWING - LEADER ELECTION TOOK - 309 (org.apache.zookeeper.server.quorum.Learner)
 humio-zookeeper3 | [2019-05-17 21:27:09,197] INFO LEADING - LEADER ELECTION TOOK - 338 (org.apache.zookeeper.server.quorum.Leader)
@@ -135,7 +135,7 @@ docker-compose up -d humio1
 
 You can watch its log output until you see something like this:
 
-```
+```shell
 $ docker-compose logs -f humio1
 Attaching to humio-core1
 humio-core1   | Initializing Log4j2
@@ -146,7 +146,7 @@ humio-core1   | Humio server is now running!
 ```
 
 The "Humio server is now running!" line is the indication that it's done booting.
-You might see some warning lines referencing "relective access" – it's safe to
+You might see some warning lines referencing "reflective access" – it's safe to
 ignore those. At this point, you should be able to browse to http://0.0.0.0:8080
 and access the Humio install. Once there, click on your profile picture in the top
 right of the page and choose "Administration". This will take you to the view
@@ -159,10 +159,10 @@ Now it's time to start up the second node:
 docker-compose up -d humio2
 ```
 
-Follow the same steps above. Once the server is done booted, you should see it show
+Follow the same steps above. Once the server is done booting, you should see it show
 up in the Cluster Nodes interface mentioned above. It will initially show up with
 a red "down" status dot, but once it queries the initial node for cluster state
-information and copies data over it needs, it should turn blue. Once it's blue, you
+information and copies the data over it needs, it should turn blue. Once it's blue, you
 can start the third node:
 
 ```
@@ -177,7 +177,7 @@ do this by hand in the Cluster Nodes area by clicking the "Edit" button in the R
 side panel, but currently it's easier to do via the API. To balance them, run these
 commands:
 
-```
+```shell
 # get the local admin token from the first humio container and save it
 TOKEN=$(docker exec -it humio-core1 cat /data/humio-data/local-admin-token.txt)
 
