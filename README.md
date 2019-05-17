@@ -118,7 +118,7 @@ docker-compose up -d kafka{1..3}
 
 If all went well, then you should see something like this:
 
-```
+```shell
 $ docker-compose logs kafka{1..3} | grep started
 humio-kafka3  | [2019-05-17 21:29:31,488] INFO [KafkaServer id=3] started (kafka.server.KafkaServer)
 humio-kafka1  | [2019-05-17 21:29:31,435] INFO [KafkaServer id=1] started (kafka.server.KafkaServer)
