@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "ensuring docker containers are stopped..."
+docker-compose down
+
+for humiodir in $(ls | grep humio); do
+  echo "cleaning ${humiodir} data..."
+  rm -rf ./${humiodir}/mounts/humio-data/*
+  echo "cleaning ${humiodir} logs..."
+  rm -rf ./${humiodir}/mounts/logs/*
+done
+
+for kafkadir in $(ls | grep kafka); do
+  echo "cleaning ${kafkadir} data..."
+  rm -rf ./${kafkadir}/mounts/kafka-data/*
+  rm -f ./${kafkadir}/mounts/kafka-data/.lock
+  rm -f ./${kafkadir}/mounts/kafka-data/.kafka_cleanshutdown
+  echo "cleaning ${kafkadir} logs..."
+  rm -rf ./${kafkadir}/mounts/logs/*
+done
+
+for zookeeperdir in $(ls | grep zookeeper); do
+  echo "cleaning ${zookeeperdir} data..."
+  for dir in $(ls ./${zookeeperdir}/mounts/zookeeper-data | grep -v myid); do
+    rm -rf ./${zookeeperdir}/mounts/zookeeper-data/${dir}
+  done
+  echo "cleaning cluster/${zookeeperdir} logs..."
+  rm -rf ./${zookeeperdir}/mounts/logs/*
+done
