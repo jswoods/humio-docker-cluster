@@ -141,7 +141,9 @@ services:
   humio1:
     image: humio/humio-core
     container_name: humio-core1
-    env_file: ./humio1/humio.env
+    env_file:
+      - ./humio-base.env
+      - ./humio1/humio.env
     restart: always
     volumes:
       - ./humio1/mounts/humio-data:/data/humio-data
@@ -165,7 +167,9 @@ services:
   humio2:
     image: humio/humio-core
     container_name: humio-core2
-    env_file: ./humio2/humio.env
+    env_file:
+      - ./humio-base.env
+      - ./humio2/humio.env
     restart: always
     volumes:
       - ./humio2/mounts/humio-data:/data/humio-data
@@ -189,7 +193,9 @@ services:
   humio3:
     image: humio/humio-core
     container_name: humio-core3
-    env_file: ./humio3/humio.env
+    env_file:
+      - ./humio-base.env
+      - ./humio3/humio.env
     restart: always
     volumes:
       - ./humio3/mounts/humio-data:/data/humio-data
